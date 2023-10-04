@@ -55,7 +55,7 @@ app.post('/convert', upload.single('heicFile'), async (req, res) => {
     }
 });
 
-app.post('/convertMultiple', upload.array('heicFile'), async (req, res) => {
+app.post('/convertMultiple', upload.array('heicFiles'), async (req, res) => {
     console.log('huhu');
 
     try {

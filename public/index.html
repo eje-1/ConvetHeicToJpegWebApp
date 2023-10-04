@@ -11,7 +11,10 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">Convert HEIC to JPEG</a>
+  <a class="navbar-brand" href="#">
+    <img src="./img/convert.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Convert HEIC to JPEG
+  </a>
 </nav>
 
 <body class="bg-primary">
@@ -78,11 +81,12 @@
     <div class="row">
       <div class="col"></div>
       <div class="col">
-        <div class="card text-center" id="convertedImages" style="width: 50rem;">
+        <div class="card text-center" id="convertedImages" style="width: 60rem;">
           <div class="card-body">
             <h5 class="card-title">JPEG</h5>
             <a id="downloadLink" href="#" download="converted_image.jpg">
-              <button id="downloadButton" disabled class="btn btn-primary">Download Image</button>
+              <button onclick="window.location.reload()" id="downloadButton" disabled class="btn btn-primary">Download
+                Image</button>
             </a>
           </div>
         </div>
@@ -90,6 +94,16 @@
       <div class="col"></div>
     </div>
   </div>
+  <footer class="bg-white text-center text-lg-start fixed-bottom">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!-- Copyright -->
+        <div class="col text-center p-3">2023 form CodeNest</div>
+        <!-- Copyright -->
+      </div>
+  </footer>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
