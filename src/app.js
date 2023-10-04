@@ -45,8 +45,9 @@ app.post('/convert', upload.single('heicFile'), async (req, res) => {
         console.log('file success converted');
 
         res.setHeader('Content-Type', 'image/jpeg');
-        console.log('send back to the page');
+        console.log('send converted img to page');
         res.send(outputBuffer);
+        console.log('done')
 
     } catch (error) {
         console.error('Error converting HEIC to JPEG:', error);

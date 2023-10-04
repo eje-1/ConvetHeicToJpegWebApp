@@ -22,7 +22,7 @@
         <h4 class="card-title">Convert HEIC to JPG</h4>
         <p class="card-text">You can convert heic file to jpeg</p>
         <div class="row">
-          <div class="col"><input type="file" id="heicFileInput" accept=".heic"></div>
+          <div class="col"><input type="file" id="heicFileInput" accept=".heic" multiple></div>
           <div class="col"><button class="btn btn-primary" onclick="convertHeicToJpeg()">Convert</button></div>
         </div>
       </div>
@@ -63,7 +63,7 @@
 
             // add attribut to href and active the download button
             $('#downloadLink').attr('href', imageUrl);
-            $('#downloadButton').prop( "disabled", false );
+            $('#downloadButton').prop("disabled", false);
 
           } else {
             console.error('Error converting HEIC to JPEG:', response.status, response.statusText);
