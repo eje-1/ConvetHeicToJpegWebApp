@@ -1,6 +1,5 @@
 ﻿# ConvetHeicToJpegWebApp
-
-Kurze Beschreibung Ihres Projekts und seiner Zwecke.
+#Kurze Beschreibung Ihres Projekts und seiner Zwecke.
 Inhaltsverzeichnis
 
     Überblick
