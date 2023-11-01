@@ -55,33 +55,38 @@ app.post('/convert', upload.single('heicFile'), async (req, res) => {
     }
 });
 
-app.post('/convertMultiple', upload.array('heicFile'), async (req, res) => {
-    console.log('huhu');
-
+app.post('/convertMultiple', upload.array('heicFiles[]'), async (req, res) => {
     try {
-        const inputBuffer = req.files;
-        const images = await convert.all({
-            buffer: inputBuffer, // heic files
-            format: 'JPEG',
-            quality: 1
-        });
+        const inputFiles = req.files;
+        const convertedImages = [];
 
-        console.log('file success converted');
+        for (const inputFile of inputFiles) {
+            const imageBuffer = inputFile.buffer;
+            const image = await convert({
+                buffer: imageBuffer,
+                format: 'JPEG',
+                quality: 1
+            });
+            convertedImages.push(image);
+        }
+
+        console.log('Files successfully converted');
 
         res.setHeader('Content-Type', 'image/jpeg');
-        console.log('send converted img to page');
+        console.log('Sending converted images to the page');
 
-        for (const idx of images) {
-            const image = images[idx];
-            const outputBuffer = await image.convert();
-            res.send(outputBuffer);
+        for (const imageBuffer of convertedImages) {
+            res.write(imageBuffer);
         }
-        console.log('done')
+
+        res.end();
+        console.log('Done');
     } catch (error) {
         console.error('Error converting HEIC to JPEG:', error);
         res.status(500).send('Error converting HEIC to JPEG');
     }
-})
+});
+
 
 /**
  * Server listen on port 3000 and localhots or 127.0.0.1

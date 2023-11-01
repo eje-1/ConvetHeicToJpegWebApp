@@ -20,50 +20,48 @@
       <img class="card-img-top" alt="">
       <div class="card-body">
         <h4 class="card-title">Convert HEIC to JPG</h4>
-        <p class="card-text">You can convert heic file to jpeg</p>
+        <p class="card-text">You can convert heic files to jpeg</p>
         <div class="row">
-          <div class="col"><input type="file" id="heicFileInput" accept=".heic" multiple></div>
-          <div class="col"><button class="btn btn-primary" onclick="convertHeicToJpeg()">Convert</button></div>
+          <div class="col">
+            <input type="file" id="heicFileInput" accept=".heic" multiple>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" onclick="convertHeicToJpeg()">Convert</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <script>
     async function convertHeicToJpeg() {
-      const inputElement = $('#heicFileInput');
-      const convertedImagesDiv = $('#convertedImages');
-      const file = inputElement.prop('files')[0];
+      const inputElement = document.getElementById('heicFileInput');
+      const convertedImagesDiv = document.getElementById('convertedImages');
+      const files = inputElement.files;
 
-      if (file) {
-
-        //cerate a new format for heic input
+      if (files.length > 0) {
         const formData = new FormData();
 
-        //append fiel to formatData
-        formData.append('heicFile', file);
+        for (const file of files) {
+          formData.append('heicFiles[]', file);
+          console.log(file);
+        }
 
-        //send formdata with heic file to server
         try {
-          const response = await fetch('/convert', {
+          const response = await fetch('/convertMultiple', {
             method: 'POST',
             body: formData,
           });
 
-          //when response was good get this convertet file and show on the page with download link
           if (response.ok) {
+            const images = await response.json();
+            console.log(images.length);
 
-            //get this object and create url
-            const imageBlob = await response.blob();
-            const imageUrl = URL.createObjectURL(imageBlob);
-
-            // show jpeg image on the page and allow download
-            const imgElement = $('<img>');
-            imgElement.attr('src', imageUrl);
-            convertedImagesDiv.append(imgElement);
-
-            // add attribut to href and active the download button
-            $('#downloadLink').attr('href', imageUrl);
-            $('#downloadButton').prop("disabled", false);
+            for (let i = 0; i < images.length; i++) {
+              const imageUrl = images[i];
+              const imgElement = document.createElement('img');
+              imgElement.src = imageUrl;
+              convertedImagesDiv.appendChild(imgElement);
+            }
 
           } else {
             console.error('Error converting HEIC to JPEG:', response.status, response.statusText);
@@ -81,9 +79,6 @@
         <div class="card text-center" id="convertedImages" style="width: 50rem;">
           <div class="card-body">
             <h5 class="card-title">JPEG</h5>
-            <a id="downloadLink" href="#" download="converted_image.jpg">
-              <button id="downloadButton" disabled class="btn btn-primary">Download Image</button>
-            </a>
           </div>
         </div>
       </div>
